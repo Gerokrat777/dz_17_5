@@ -30,7 +30,7 @@ async def task_by_id(db: Annotated[Session, Depends(get_db)],
 @router.post('/create')
 async def create_task(db: Annotated[Session, Depends(get_db)],
                       create_task_: CreateTask,
-                      user_id: int):
+                      user_id=user.id):
     user_ = db.scalar(select(User).where(User.id == user_id))
     if user_ is None:
         raise HTTPException(status_code=404,
